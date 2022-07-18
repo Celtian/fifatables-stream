@@ -1,4 +1,4 @@
-import { Datatype, Field, RawData, sortByOrder } from 'fifatables';
+import { Field, formatRawValue, RawData, sortByOrder } from 'fifatables';
 import { Transform, TransformCallback, TransformOptions } from 'stream';
 
 export interface Csv2JsonTransformOptions extends TransformOptions {
@@ -20,7 +20,7 @@ export class Csv2JsonTransform extends Transform {
     if (length === this.opts.fields.length) {
       const object: RawData = this.opts.fields
         .sort(sortByOrder)
-        .reduce((acc, field) => ({ ...acc, [field.name]: this.formatFn(field, cols[field.order]) }), {});
+        .reduce((acc, field) => ({ ...acc, [field.name]: formatRawValue(field, cols[field.order]) }), {});
 
       this.push(JSON.stringify(object));
     }
@@ -29,16 +29,5 @@ export class Csv2JsonTransform extends Transform {
 
   public _flush(callback: TransformCallback): void {
     callback();
-  }
-
-  private formatFn(field: Field, value: string): string | number {
-    switch (field.type) {
-      case Datatype.Int:
-        return Number(value);
-      case Datatype.Float:
-        return Number(value.replace(',', '.'));
-      default:
-        return value;
-    }
   }
 }
