@@ -1,6 +1,6 @@
 {
   "name": "fifatables-stream",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Streams for Fifa Soccer Game tables",
   "main": "index.js",
   "scripts": {
