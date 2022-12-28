@@ -1,6 +1,6 @@
 import { Datatype, Field } from 'fifatables';
 import { PassThrough } from 'stream';
-import { Json2CsvTransform } from '../../lib/transforms/json2csv';
+import { Json2CsvTransform } from '../../src/transforms/json2csv';
 
 describe('Json2CsvTransform', () => {
   it('should return correct value', (done) => {

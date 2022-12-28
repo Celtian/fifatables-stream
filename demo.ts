@@ -1,7 +1,7 @@
 import { Fifa, fifaConfig, Table } from 'fifatables';
 import { join } from 'path';
 import { cwd } from 'process';
-import { readCsvStream, writeCsvStream } from './lib';
+import { readCsvStream, writeCsvStream } from './src';
 
 const readCsvStreamDemo = (): void => {
   console.log('⚽⚽⚽ Read csv demo ⚽⚽⚽');

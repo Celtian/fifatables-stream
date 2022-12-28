@@ -1,5 +1,5 @@
 import { PassThrough } from 'stream';
-import { NewLineTransform } from '../../lib/transforms/new-line';
+import { NewLineTransform } from '../../src/transforms/new-line';
 
 describe('NewLineTransform', () => {
   it('should return correct value', (done) => {

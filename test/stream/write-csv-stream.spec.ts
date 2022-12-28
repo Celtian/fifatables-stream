@@ -2,7 +2,7 @@ import { Fifa, fifaConfig, Table } from 'fifatables';
 import { readFileSync } from 'fs';
 import { join } from 'path';
 import { cwd } from 'process';
-import { readCsvStream, writeCsvStream } from '../../lib/stream';
+import { readCsvStream, writeCsvStream } from '../../src/stream';
 
 describe('writeCsvStream', () => {
   it('should return correct value', (done) => {

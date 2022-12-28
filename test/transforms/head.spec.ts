@@ -1,5 +1,5 @@
 import { PassThrough } from 'stream';
-import { HeadTransform } from '../../lib/transforms/head';
+import { HeadTransform } from '../../src/transforms/head';
 
 describe('HeadTransform', () => {
   it('should return correct value', (done) => {
