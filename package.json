@@ -1,6 +1,6 @@
 {
   "name": "fifatables-stream",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Streams for Fifa Soccer Game tables",
   "scripts": {
     "start": "rimraf dist && tsc-watch --build tsconfig.es5.json --onSuccess 'yarn postbuild'",
