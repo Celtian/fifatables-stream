@@ -1,7 +1,7 @@
 import { Fifa, fifaConfig, Table } from 'fifatables';
 import { join } from 'path';
 import { cwd } from 'process';
-import { readCsvStream } from '../../lib/stream';
+import { readCsvStream } from '../../src/stream';
 
 describe('readCsvStream', () => {
   it('should return correct value', (done) => {

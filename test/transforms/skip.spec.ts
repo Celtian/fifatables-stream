@@ -1,5 +1,5 @@
 import { PassThrough } from 'stream';
-import { SkipTransform } from '../../lib/transforms/skip';
+import { SkipTransform } from '../../src/transforms/skip';
 
 describe('SkipTransform', () => {
   it('should return correct value', (done) => {
