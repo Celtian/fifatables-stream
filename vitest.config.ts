@@ -7,7 +7,8 @@ export default defineConfig({
     coverage: {
       provider: 'v8',
       reporter: ['text', 'json', 'json-summary', 'html', 'lcov'],
-      reportsDirectory: 'coverage'
+      reportsDirectory: 'coverage',
+      reportOnFailure: true
     },
     testTimeout: 20000
   }
