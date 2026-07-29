@@ -73,5 +73,12 @@
     "scraper",
     "soccer",
     "fifatables-stream"
-  ]
+  ],
+  "auto-changelog": {
+    "remote": "none",
+    "commitUrl": "https://github.com/Celtian/fifatables-stream/commit/{id}",
+    "issueUrl": "https://github.com/Celtian/fifatables-stream/issues/{id}",
+    "mergeUrl": "https://github.com/Celtian/fifatables-stream/pull/{id}",
+    "compareUrl": "https://github.com/Celtian/fifatables-stream/compare/{from}...{to}"
+  }
 }
