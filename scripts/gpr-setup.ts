@@ -1,13 +1,14 @@
-import { writeFileSync } from 'fs';
+import { readJsonSync, writeFileSync } from 'fs-extra';
 import { join } from 'path';
-import distPackage from '../dist/package.json';
 
 // Modify package.json in dist folder
-const pkg: Record<string, any> = distPackage;
+const packagePath = join(__dirname, '..', 'dist', 'package.json');
+const pkg = readJsonSync(packagePath) as Record<string, unknown>;
 
-pkg.publishConfig = {};
+pkg.publishConfig = {
+  registry: 'https://npm.pkg.github.com'
+};
 pkg.name = '@celtian/fifatables-stream';
-pkg.publishConfig.registry = 'https://npm.pkg.github.com';
 
-writeFileSync(join(__dirname, '..', 'dist', 'package.json'), JSON.stringify(pkg, null, 2));
+writeFileSync(packagePath, JSON.stringify(pkg, null, 2));
 console.log('File package.json modified:', pkg);

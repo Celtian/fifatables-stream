@@ -1,9 +1,10 @@
 import { Datatype, Field } from 'fifatables';
 import { PassThrough } from 'stream';
+import { finished } from 'stream/promises';
 import { Json2CsvTransform } from '../../src/transforms/json2csv';
 
 describe('Json2CsvTransform', () => {
-  it('should return correct value', (done) => {
+  it('should return correct value', async () => {
     const mockReadable = new PassThrough();
 
     const fields: Field[] = [
@@ -25,14 +26,15 @@ describe('Json2CsvTransform', () => {
       }
     ];
 
-    mockReadable
-      .pipe(new Json2CsvTransform({ fields }))
-      .on('data', (chunk: Buffer) => expect(chunk.toString()).toEqual('\ufeffheight\tweight\r\n180\t80'))
-      .on('finish', () => done());
+    const chunks: Buffer[] = [];
+    const stream = mockReadable.pipe(new Json2CsvTransform({ fields }));
+    stream.on('data', (chunk: Buffer) => {
+      chunks.push(chunk);
+    });
 
-    setTimeout(() => {
-      mockReadable.emit('data', '{"height":180,"weight":80}');
-      mockReadable.emit('end');
-    }, 100);
+    mockReadable.end('{"height":180,"weight":80}');
+    await finished(stream);
+
+    expect(Buffer.concat(chunks).toString()).toEqual('\ufeffheight\tweight\r\n180\t80');
   });
 });

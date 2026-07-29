@@ -8,7 +8,7 @@ import { Json2CsvTransform } from '../transforms/json2csv';
 import { NewLineTransform } from '../transforms/new-line';
 import { SkipTransform } from '../transforms/skip';
 
-export type StreamType = NodeJS.ReadWriteStream | WriteStream;
+export type StreamType = NodeJS.ReadWriteStream;
 
 export const readCsvStream = (inputFolder: string, table: Table, fields: Field[]): StreamType => {
   const inputFile = join(inputFolder, `${table}.txt`);
@@ -20,11 +20,11 @@ export const readCsvStream = (inputFolder: string, table: Table, fields: Field[]
 };
 
 export const writeCsvStream = (
-  readStream: StreamType,
+  readStream: NodeJS.ReadableStream,
   outputFolder: string,
   table: Table,
   fields: Field[]
-): StreamType => {
+): WriteStream => {
   mkdirSync(outputFolder, { recursive: true });
   const outputFile = join(outputFolder, `${table}.txt`);
   const ws = createWriteStream(outputFile, { encoding: 'utf16le' });

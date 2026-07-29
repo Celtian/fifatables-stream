@@ -2,7 +2,7 @@
   "compilerOptions": {
     "target": "es2019",
     "lib": ["dom"],
-    "types": ["node", "jest"],
+    "types": ["node", "vitest/globals"],
     "baseUrl": "./src",
     "esModuleInterop": true,
     "module": "commonjs",
@@ -19,6 +19,6 @@
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true
   },
-  "include": ["src"],
+  "include": ["src", "test", "scripts", "demo.ts", "vitest.config.ts"],
   "exclude": ["dist/**/*", "*/tests/**/*"]
 }
