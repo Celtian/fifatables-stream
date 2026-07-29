@@ -20,15 +20,33 @@ export class Json2CsvTransform extends Transform {
     if (this.line === 0) {
       lines.push('\ufeff' + orderedFields.map((f) => f.name).join('\t'));
     }
-    const oldValue = JSON.parse(chunk.toString());
+    const parsedValue: unknown = JSON.parse(chunk.toString());
+    if (typeof parsedValue !== 'object' || parsedValue === null) {
+      callback(new TypeError('Expected a JSON object'));
+      return;
+    }
+    const oldValue = parsedValue as Record<string, unknown>;
 
     lines.push(
       orderedFields
         .map((f) => {
-          if (f.type === Datatype.Float) {
-            return String(oldValue[f.name]).replace('.', ',');
+          const value = oldValue[f.name];
+          if (value === null || value === undefined) {
+            return '';
           }
-          return oldValue[f.name];
+          if (
+            typeof value !== 'string' &&
+            typeof value !== 'number' &&
+            typeof value !== 'boolean' &&
+            typeof value !== 'bigint'
+          ) {
+            throw new TypeError(`Expected a primitive value for field "${f.name}"`);
+          }
+          const stringValue = String(value);
+          if (f.type === Datatype.Float) {
+            return stringValue.replace('.', ',');
+          }
+          return stringValue;
         })
         .join('\t')
     );

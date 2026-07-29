@@ -1,19 +1,20 @@
 import { PassThrough } from 'stream';
+import { finished } from 'stream/promises';
 import { SkipTransform } from '../../src/transforms/skip';
 
 describe('SkipTransform', () => {
-  it('should return correct value', (done) => {
+  it('should return correct value', async () => {
     const mockReadable = new PassThrough();
+    const chunks: Buffer[] = [];
+    const stream = mockReadable.pipe(new SkipTransform({ count: 1 }));
+    stream.on('data', (chunk: Buffer) => {
+      chunks.push(chunk);
+    });
 
-    mockReadable
-      .pipe(new SkipTransform({ count: 1 }))
-      .on('data', (chunk: Buffer) => expect(chunk.toString()).toEqual('line 1'))
-      .on('finish', () => done());
+    mockReadable.write('line 0');
+    mockReadable.end('line 1');
+    await finished(stream);
 
-    setTimeout(() => {
-      mockReadable.emit('data', 'line 0');
-      mockReadable.emit('data', 'line 1');
-      mockReadable.emit('end');
-    }, 100);
+    expect(Buffer.concat(chunks).toString()).toEqual('line 1');
   });
 });

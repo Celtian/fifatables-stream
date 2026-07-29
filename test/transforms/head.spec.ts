@@ -1,19 +1,20 @@
 import { PassThrough } from 'stream';
+import { finished } from 'stream/promises';
 import { HeadTransform } from '../../src/transforms/head';
 
 describe('HeadTransform', () => {
-  it('should return correct value', (done) => {
+  it('should return correct value', async () => {
     const mockReadable = new PassThrough();
+    const chunks: Buffer[] = [];
+    const stream = mockReadable.pipe(new HeadTransform({ count: 1 }));
+    stream.on('data', (chunk: Buffer) => {
+      chunks.push(chunk);
+    });
 
-    mockReadable
-      .pipe(new HeadTransform({ count: 1 }))
-      .on('data', (chunk: Buffer) => expect(chunk.toString()).toEqual('line 0'))
-      .on('finish', () => done());
+    mockReadable.write('line 0');
+    mockReadable.end('line 1');
+    await finished(stream);
 
-    setTimeout(() => {
-      mockReadable.emit('data', 'line 0');
-      mockReadable.emit('data', 'line 1');
-      mockReadable.emit('end');
-    }, 100);
+    expect(Buffer.concat(chunks).toString()).toEqual('line 0');
   });
 });

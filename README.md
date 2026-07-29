@@ -25,7 +25,7 @@ npm install fifatables-stream
 or
 
 ```terminal
-yarn add fifatables-stream
+bun add fifatables-stream
 ```
 
 ## Quick start
@@ -61,7 +61,7 @@ See library [fifatables](https://www.npmjs.com/package/fifatables).
 
 ## License
 
-Copyright &copy; 2022 - 2023 [Dominik Hladik](https://github.com/Celtian)
+Copyright &copy; 2022 - 2026 [Dominik Hladik](https://github.com/Celtian)
 
 All contents are licensed under the [MIT license].
 
