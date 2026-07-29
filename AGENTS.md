@@ -14,17 +14,17 @@
 ## Environment and Package Manager
 
 - Use the Node.js version declared in `.nvmrc`; run `nvm install` and `nvm use` before project commands.
-- Use Yarn 1.22.22 and keep `yarn.lock` authoritative.
-- Install dependencies with `yarn install --frozen-lockfile`.
+- Use Bun 1.3.14 and keep `bun.lock` authoritative.
+- Install dependencies with `bun install`; use `bun ci` for frozen installs.
 - Do not run version, release, publish, or registry setup scripts unless the user explicitly asks.
 
 ## Common Commands
 
-- Build both package targets: `yarn build`
-- Run lint checks: `yarn lint`
-- Run tests: `yarn test`
-- Run tests with CI coverage: `yarn test --coverage`
-- Format-check changed files: `yarn prettier --check <files>`
+- Build both package targets: `bun run build`
+- Run lint checks: `bun run lint`
+- Run tests: `bun run test`
+- Run tests with CI coverage: `bun run test --coverage`
+- Format-check changed files: `bunx --no-install prettier --check <files>`
 
 ## Change Guidelines
 
@@ -39,6 +39,7 @@
 
 ## Validation
 
-- For source, test, packaging, or workflow changes, run `yarn lint`, `yarn build`, and `yarn test --coverage`.
+- For source, test, packaging, or workflow changes, run `bun run lint`, `bun run build`, and
+  `bun run test --coverage`.
 - For documentation-only changes, validate the affected Markdown.
 - Before handoff, run `git diff --check` and report the validation commands that were executed.
